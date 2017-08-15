@@ -18,6 +18,10 @@ public class ObjectDistanceAttract : MonoBehaviour {
     float startTime;
     float smooth;
 
+    //Trying for delay
+    float lerpTime = 1f;
+    float currentLerpTime;
+
     // Use this for initialization
     void Start () {
 
@@ -36,12 +40,14 @@ public class ObjectDistanceAttract : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        float smooth = (Time.time - startTime) * .01f;
+        ///float smooth = (Time.time - startTime) * .01f;
 
         Vector3[] currentPos = new Vector3[count];
 
         for(int i = 0; i < count; i++)
         {
+            float smooth = (Time.time - (startTime - i)) * .05f;
+
             //Init positions
             attractPos = attractor.transform.position;
             Vector3 origin = transform.position;
@@ -52,10 +58,13 @@ public class ObjectDistanceAttract : MonoBehaviour {
 
             //Set destination Vector
             Vector3 go = Vector3.Lerp(currentPos[i], destination, smooth / (i + 1));
+            //Vector3 go = Vector3.Lerp(currentPos[i], destination, (Time.time - startTime-i) * 0.5f);
 
             refSphere[i].transform.position = go;
 
         }
         	
 	}
+
+
 }
